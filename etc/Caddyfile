@@ -18,4 +18,4 @@ basicauth /35abede8-ce5e-4d04-a378-f6f73fb40f59/* {
     header Upgrade    websocket
     path /35abede8-ce5e-4d04-a378-f6f73fb40f59-vmess
 }
-reverse_proxy @websocket_xray_vmess 127.0.0.1:10001
+reverse_proxy @websocket_xray_vmess unix//etc/caddy/vmess
