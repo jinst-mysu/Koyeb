@@ -1,4 +1,4 @@
-:$PORT
+:80
 root * /usr/share/caddy
 file_server browse
 
@@ -9,13 +9,13 @@ header {
     Referrer-Policy no-referrer-when-downgrade
 }
 
-basicauth /$AUUID/* {
-    $AUUID $MYUUID-HASH
+basicauth /35abede8-ce5e-4d04-a378-f6f73fb40f59/* {
+    35abede8-ce5e-4d04-a378-f6f73fb40f59 $2a$14$h7.UEfTJ7cmXz.Tq8U9JrubRaaXZP4PwGDfuPH9Cd7G8oYKv1s.8.
 }
 
 @websocket_xray_vmess {
-header Connection *Upgrade*
-header Upgrade    websocket
-path /$AUUID-vmess
+    header Connection *Upgrade*
+    header Upgrade    websocket
+    path /35abede8-ce5e-4d04-a378-f6f73fb40f59-vmess
 }
-reverse_proxy @websocket_xray_vmess unix//etc/caddy/vmess
+reverse_proxy @websocket_xray_vmess 127.0.0.1:10001
