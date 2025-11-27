@@ -9,18 +9,42 @@ ADD etc/Caddyfile /tmp/Caddyfile
 ADD etc/xray.json /tmp/xray.json
 ADD start.sh /start.sh
 
-RUN apk update && \
-    apk add --no-cache ca-certificates caddy tor wget && \
-    wget -O Xray-linux-64.zip https://github.com/XTLS/Xray-core/releases/latest/download/Xray-linux-64.zip && \
-    unzip Xray-linux-64.zip && \
-    chmod +x /xray && \
-    rm -rf /var/cache/apk/* && \
-    rm -f Xray-linux-64.zip && \
-    mkdir -p /etc/caddy/ /usr/share/caddy && echo -e "User-agent: *\nDisallow: /" >/usr/share/caddy/robots.txt && \
-    wget $CADDYIndexPage -O /usr/share/caddy/index.html && unzip -qo /usr/share/caddy/index.html -d /usr/share/caddy/ && mv /usr/share/caddy/*/* /usr/share/caddy/ && \
-    cat /tmp/Caddyfile | sed -e "1c :$PORT" -e "s/\$AUUID/$AUUID/g" -e "s/\$MYUUID-HASH/$(caddy hash-password --plaintext $AUUID)/g" >/etc/caddy/Caddyfile && \
-    cat /tmp/xray.json | sed -e "s/\$AUUID/$AUUID/g" -e "s/\$ParameterSSENCYPT/$ParameterSSENCYPT/g" >/xray.json
+# 分步骤执行，便于定位错误
+RUN echo "步骤1: 更新包管理器并安装依赖..." && \
+    apk update && \
+    apk add --no-cache ca-certificates caddy tor wget unzip
 
-RUN chmod +x /start.sh
+RUN echo "步骤2: 下载并安装 Xray..." && \
+    wget -O Xray-linux-64.zip https://github.com/XTLS/Xray-core/releases/latest/download/Xray-linux-64.zip && \
+    unzip -o Xray-linux-64.zip && \
+    chmod +x xray && \
+    mv xray /xray && \
+    rm -f Xray-linux-64.zip
+
+RUN echo "步骤3: 创建目录结构..." && \
+    mkdir -p /etc/caddy/ /usr/share/caddy && \
+    echo -e "User-agent: *\nDisallow: /" >/usr/share/caddy/robots.txt
+
+RUN echo "步骤4: 下载并解压网站文件..." && \
+    wget "$CADDYIndexPage" -O /tmp/site.zip && \
+    unzip -qo /tmp/site.zip -d /tmp/site_temp/ && \
+    find /tmp/site_temp/ -name "*.html" -exec mv {} /usr/share/caddy/ \; 2>/dev/null || true && \
+    rm -rf /tmp/site_temp/ /tmp/site.zip
+
+RUN echo "步骤5: 处理 Caddyfile 配置..." && \
+    CADDY_HASH=$(caddy hash-password --plaintext "$AUUID") && \
+    sed -e "1c :$PORT" \
+        -e "s/\$AUUID/$AUUID/g" \
+        -e "s/\$MYUUID-HASH/$CADDY_HASH/g" \
+        /tmp/Caddyfile > /etc/caddy/Caddyfile
+
+RUN echo "步骤6: 处理 Xray 配置..." && \
+    sed -e "s/\$AUUID/$AUUID/g" \
+        -e "s/\$ParameterSSENCYPT/$ParameterSSENCYPT/g" \
+        /tmp/xray.json > /xray.json
+
+RUN echo "步骤7: 设置启动脚本权限..." && \
+    chmod +x /start.sh && \
+    rm -rf /var/cache/apk/*
 
 CMD /start.sh
