@@ -1,28 +1,32 @@
 {
-    "inbounds": 
-    [
-        {
-            "listen": "/etc/caddy/vmess","protocol": "vmess",
-            "settings": {"clients": [{"id": "$AUUID"}]},
-            "streamSettings": {"network": "ws","wsSettings": {"path": "/$AUUID-vmess"}}
-        }
-    ],
-    
-    "outbounds": 
-    [
-        {"protocol": "freedom","tag": "direct","settings": {}},
-        {"protocol": "blackhole","tag": "blocked","settings": {}},
-        {"protocol": "socks","tag": "sockstor","settings": {"servers": [{"address": "127.0.0.1","port": 9050}]}},
-        {"protocol": "freedom","tag": "twotag","streamSettings": {"network": "domainsocket","dsSettings": {"path": "apath","abstract": true}}}    
-    ],
-    
-    "routing": 
+  "log": {
+    "loglevel": "warning"
+  },
+  "inbounds": [
     {
-        "rules": 
-        [
-            {"type": "field","inboundTag": ["onetag"],"outboundTag": "twotag"},
-            {"type": "field","outboundTag": "sockstor","domain": ["geosite:tor"]},
-            {"type": "field","outboundTag": "blocked","domain": ["geosite:category-ads-all"]}
+      "listen": "/etc/caddy/vmess",
+      "protocol": "vmess",
+      "settings": {
+        "clients": [
+          {
+            "id": "35abede8-ce5e-4d04-a378-f6f73fb40f59",
+            "level": 0,
+            "alterId": 0
+          }
         ]
+      },
+      "streamSettings": {
+        "network": "ws",
+        "wsSettings": {
+          "path": "/35abede8-ce5e-4d04-a378-f6f73fb40f59-vmess"
+        }
+      }
     }
+  ],
+  "outbounds": [
+    {
+      "protocol": "freedom",
+      "settings": {}
+    }
+  ]
 }
