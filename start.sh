@@ -1,8 +1,8 @@
 #!/bin/sh
 
 # 设置环境变量
-export AUUID=35abede8-ce5e-4d04-a378-f6f73fb40f59
-export MYUUID_HASH=$2a$14$h7.UEfTJ7cmXz.Tq8U9JrubRaaXZP4PwGDfuPH9Cd7G8oYKv1s.8.
+export AUUID=获取的UUID替换此处
+export MYUUID_HASH=（UUID通过Bcrypt加密得到的结果替换此处，包括括号$2a$14$h7.UEfTJ7cmXz.Tq8U9JrubRaaXZP4PwGDfuPH9Cd7G8oYKv1s.8.）
 export PORT=80
 
 echo "=== 环境变量 ==="
