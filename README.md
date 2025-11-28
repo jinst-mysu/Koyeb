@@ -30,20 +30,5 @@ MYUUID_HASH：在[MYUUID_HASH](https://33tool.com/bcrypt/)用UUID加密一下
 `Docker Image`：Docker Hub镜像地址
 环境变量：`Key`：PORT，`Value`：80
 
-8. 客户端配置如下所示
-
-V2ray
-
-地址：xxx-xxx.koyeb.app 或 CF优选IP
-端口：443
-默认UUID：UUID
-vmess额外id：0
-加密：none
-传输协议：ws
-伪装类型：none
-伪装域名：xxx-xxx.koyeb.app
-路径：/UUID-vless或/UUID-vmess
-底层传输安全：tls
-SNI:xxx-xxx.koyeb.app
-ALPN:H3,H2,HTTP/1.1
-跳过证书验证：false
+8. V2ray客户端配置如下所示
+<img width="886" height="942" alt="屏幕截图 2025-11-28 095057" src="https://github.com/user-attachments/assets/3a8f9113-65ed-4fd3-bad0-b05aaaf44cdc" />
