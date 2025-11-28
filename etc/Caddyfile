@@ -1,4 +1,4 @@
-:80
+:$PORT
 root * /usr/share/caddy
 file_server browse
 
@@ -9,13 +9,42 @@ header {
     Referrer-Policy no-referrer-when-downgrade
 }
 
-basicauth /35abede8-ce5e-4d04-a378-f6f73fb40f59/* {
-    35abede8-ce5e-4d04-a378-f6f73fb40f59 $2a$14$h7.UEfTJ7cmXz.Tq8U9JrubRaaXZP4PwGDfuPH9Cd7G8oYKv1s.8.
+basicauth /$AUUID/* {
+    $AUUID $MYUUID-HASH
 }
 
 @websocket_xray_vmess {
-    header Connection *Upgrade*
-    header Upgrade    websocket
-    path /35abede8-ce5e-4d04-a378-f6f73fb40f59-vmess
+header Connection *Upgrade*
+header Upgrade    websocket
+path /$AUUID-vmess
 }
 reverse_proxy @websocket_xray_vmess unix//etc/caddy/vmess
+
+
+@websocket_xray_vless {
+header Connection *Upgrade*
+header Upgrade    websocket
+path /$AUUID-vless
+}
+reverse_proxy @websocket_xray_vless unix//etc/caddy/vless
+
+@websocket_xray_trojan {
+header Connection *Upgrade*
+header Upgrade    websocket
+path /$AUUID-trojan
+}
+reverse_proxy @websocket_xray_trojan unix//etc/caddy/trojan
+
+@websocket_xray_ss {
+header Connection *Upgrade*
+header Upgrade    websocket
+path /$AUUID-ss
+}
+reverse_proxy @websocket_xray_ss 127.0.0.1:4234
+
+@websocket_xray_socks {
+header Connection *Upgrade*
+header Upgrade    websocket
+path /$AUUID-socks
+}
+reverse_proxy @websocket_xray_socks 127.0.0.1:5234
