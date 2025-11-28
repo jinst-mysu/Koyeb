@@ -46,7 +46,7 @@ vmess额外id：0
 传输协议：ws
 伪装类型：none
 伪装域名：xxx-xxx.koyeb.app
-路径：/UUID-vless或/UUID-vmess           vless使用(/自定义UUID码-vless)，vmess使用(/自定义UUID码-vmess)
+路径：/UUID-vless或/UUID-vmess
 底层传输安全：tls
 SNI:xxx-xxx.koyeb.app
 ALPN:H3,H2,HTTP/1.1
