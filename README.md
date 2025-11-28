@@ -15,7 +15,7 @@
 
 4. 去[Docker Hub](https://hub.docker.com/)注册一个账号，如有账号可跳过
    
-5. 编辑Actions文件`docker-image.yml`，按照“name: Docker Hub ID/自定义镜像名称”格式修改第13行
+5. 编辑Actions文件`.github/workflows/docker-image.yml`，按照“name: Docker Hub ID/自定义镜像名称”格式修改第13行
    <img width="1030" height="607" alt="image" src="https://github.com/user-attachments/assets/91d26c2c-c16d-4669-9251-8265a17ad73d" />
 
 
