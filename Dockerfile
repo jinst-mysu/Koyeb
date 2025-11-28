@@ -1,7 +1,7 @@
 FROM alpine:edge
 
 ARG AUUID="获取一个UUID替换此处"
-ARG CADDYIndexPage="https://raw.githubusercontent.com/jinst-mysu/CADDYIndexPage/refs/heads/main/microsoft/index.html"
+ARG CADDYIndexPage="https://github.com/AYJCSGM/mikutap/archive/master.zip"
 ARG ParameterSSENCYPT="chacha20-ietf-poly1305"
 ARG PORT=80
 
