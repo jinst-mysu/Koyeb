@@ -1,7 +1,7 @@
 ## 部署步骤
 
 1. fork本仓库
-2. 在`Dockerfile`内第3-5行修改自定义设置，说明如下：
+2. (1)在`Dockerfile`内第3-5行修改自定义设置：
 
    `AUUID`：在[uuidgenerator](https://www.uuidgenerator.net/)生成
 
@@ -10,6 +10,8 @@
     `CADDYIndexPage`：伪装站首页文件
 
     `ParameterSSENCYPT`：ShadowSocks加密协议
+
+   (2)`etc/xray.json`需要修改UUID：
 
 4. 去[Docker Hub](https://hub.docker.com/)注册一个账号，如有账号可跳过
    
