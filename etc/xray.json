@@ -9,7 +9,7 @@
       "settings": {
         "clients": [
           {
-            "id": "35abede8-ce5e-4d04-a378-f6f73fb40f59",
+            "id": "获取一个UUID替换此处",
             "level": 0,
             "alterId": 0
           }
@@ -18,7 +18,7 @@
       "streamSettings": {
         "network": "ws",
         "wsSettings": {
-          "path": "/35abede8-ce5e-4d04-a378-f6f73fb40f59-vmess"
+          "path": "/（UUID替换此处，包括小括号）-vmess"
         }
       }
     }
